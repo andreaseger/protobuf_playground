@@ -1,5 +1,6 @@
-ENV["RACK_ENV"] ||= "test"
-require_relative "../config/env"
+# frozen_string_literal: true
+ENV['RACK_ENV'] ||= 'test'
+require_relative '../config/env'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
