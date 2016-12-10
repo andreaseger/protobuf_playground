@@ -2,7 +2,8 @@
 source "https://rubygems.org"
 
 
-gem "rack-app"
+gem "rack"
+gem "rack-app", require: "rack/app"
 gem "puma"
 
 gem "dry-struct"
@@ -14,5 +15,4 @@ gem "mongo"
 group :test, :development do
   gem "rspec"
   gem "guard-rspec"
-  gem "guard-rubocop"
 end
