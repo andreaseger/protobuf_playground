@@ -10,3 +10,9 @@ gem "dry-struct"
 gem 'google-protobuf'
 
 gem "mongo"
+
+group :test, :development do
+  gem "rspec"
+  gem "guard-rspec"
+  gem "guard-rubocop"
+end
