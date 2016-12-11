@@ -9,20 +9,20 @@ describe Api do
   rack_app described_class
 
   let(:juice) do
-    Model::Juice.new(
+    Wire::Juice.new(
       id: SecureRandom.uuid,
       name: 'Mango',
-      created_at: Time.iso8601('2016-12-11T02:00:00.123Z'),
-      updated_at: Time.iso8601('2016-12-11T02:05:00.123Z'),
+      created_at: protobuf_timestamp(Time.iso8601('2016-12-11T02:00:00.123Z')),
+      updated_at: protobuf_timestamp(Time.iso8601('2016-12-11T02:05:00.123Z')),
       size: 750
     )
   end
   let(:juice2) do
-    Model::Juice.new(
+    Wire::Juice.new(
       id: SecureRandom.uuid,
       name: 'Tomato',
-      created_at: Time.iso8601('2016-11-11T02:00:00.123Z'),
-      updated_at: Time.iso8601('2016-11-11T02:05:00.123Z'),
+      created_at: protobuf_timestamp(Time.iso8601('2016-11-11T02:00:00.123Z')),
+      updated_at: protobuf_timestamp(Time.iso8601('2016-11-11T02:05:00.123Z')),
       size: 500
     )
   end
@@ -31,21 +31,13 @@ describe Api do
     Google::Protobuf::Timestamp.new.tap { |e| e.from_time(time) }
   end
 
-  def juice_pb_msg(juice)
-    Wire::Juice.new(id: juice.id,
-                    name: juice.name,
-                    created_at: protobuf_timestamp(juice.created_at),
-                    updated_at: protobuf_timestamp(juice.updated_at),
-                    size: juice.size)
-  end
-
   def juice_pb(juice)
-    Wire::Juice.encode(juice_pb_msg(juice))
+    Wire::Juice.encode(juice)
   end
 
   def juice_list_pb(juices)
     Wire::JuiceList.encode(
-      Wire::JuiceList.new(juices: juices.map { |e| juice_pb_msg(e) })
+      Wire::JuiceList.new(juices: juices)
     )
   end
 
@@ -81,13 +73,11 @@ describe Api do
     it do
       subject
       expect(Repo::Juice.collection.find(_id: juice.id).first)
-        .to eq({
-                 "_id" => juice.id,
-                 "created_at" => juice.created_at,
-                 "name" => juice.name,
-                 "size" => juice.size,
-                 "updated_at" => juice.updated_at
-               })
+        .to eq('_id' => juice.id,
+               'name' => juice.name,
+               'created_at' => juice.created_at.to_time,
+               'updated_at' => juice.updated_at.to_time,
+               'size' => juice.size)
     end
   end
 
