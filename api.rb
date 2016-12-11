@@ -1,13 +1,17 @@
 # frozen_string_literal: true
-require 'model/juice'
 require 'use_case/create'
 require 'use_case/show'
 require 'use_case/index'
 
-require 'wire'
+require 'wire/types_pb'
 class Api < Rack::App
   serializer do |obj|
-    Wire.encode(obj)
+    case obj
+    when Wire::Juice
+      Wire::Juice.encode(obj)
+    when Wire::JuiceList
+      Wire::JuiceList.encode(obj)
+    end
   end
 
   namespace '/juices' do
