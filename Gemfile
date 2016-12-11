@@ -6,6 +6,7 @@ gem 'rack'
 gem 'rack-app', require: 'rack/app'
 
 gem 'dry-struct'
+gem 'dry-types'
 
 gem 'google-protobuf'
 
@@ -15,4 +16,5 @@ group :test, :development do
   gem 'guard-rspec'
   gem 'rspec'
   gem 'rubocop'
+  gem "pry"
 end

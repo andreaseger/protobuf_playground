@@ -108,9 +108,11 @@ PLATFORMS
 
 DEPENDENCIES
   dry-struct
+  dry-types
   google-protobuf
   guard-rspec
   mongo
+  pry
   puma
   rack
   rack-app
