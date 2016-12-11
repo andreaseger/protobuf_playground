@@ -14,7 +14,7 @@ gem 'mongo'
 
 group :test, :development do
   gem 'guard-rspec'
+  gem 'pry'
   gem 'rspec'
   gem 'rubocop'
-  gem "pry"
 end

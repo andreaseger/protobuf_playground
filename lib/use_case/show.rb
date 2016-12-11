@@ -1,4 +1,5 @@
-require "repo/juice"
+# frozen_string_literal: true
+require 'repo/juice'
 
 module UseCase
   class Show

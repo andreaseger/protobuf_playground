@@ -1,5 +1,6 @@
-require "mongo"
-require "singleton"
+# frozen_string_literal: true
+require 'mongo'
+require 'singleton'
 
 module Repo
   class Juice
@@ -11,14 +12,14 @@ module Repo
     end
 
     def self.find(id:)
-      doc = collection.find_one(_id: id)
-      doc["id"] = doc["_id"]
+      doc = collection.find(_id: id).first
+      doc['id'] = doc['_id']
       Model::Juice.new(doc)
     end
 
     def self.all
       collection.find.to_a.map do |doc|
-        doc["id"] = doc.delete("_id")
+        doc['id'] = doc.delete('_id')
         Model::Juice.new(doc)
       end
     end
@@ -36,10 +37,11 @@ module Repo
 
   class Mongo
     include Singleton
+    URI = "mongodb://127.0.0.1:27017/protobuf_playground_#{ENV['RACK_ENV']}"
 
     attr_reader :client
     def initialize
-      @client = ::Mongo::Client.new("mongodb://127.0.0.1:27017/protobuf_playground")
+      @client = ::Mongo::Client.new(URI)
     end
   end
 end

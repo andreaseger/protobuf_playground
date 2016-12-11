@@ -3,3 +3,8 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+
+Metrics/LineLength:
+  Exclude:
+    - lib/wire/types_pb.rb

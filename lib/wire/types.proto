@@ -9,3 +9,7 @@ message Juice {
   google.protobuf.Timestamp updated_at = 4;
   int32 size = 5;
 }
+
+message JuiceList {
+  repeated Juice juices = 1;
+}

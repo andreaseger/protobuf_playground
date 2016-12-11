@@ -1,5 +1,6 @@
-require "wire"
-require "repo/juice"
+# frozen_string_literal: true
+require 'wire'
+require 'repo/juice'
 
 module UseCase
   class Create
